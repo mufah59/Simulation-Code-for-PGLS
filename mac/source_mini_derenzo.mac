@@ -1,0 +1,24 @@
+##########################################################
+# Mini-Derenzo Phantom Source
+# Paper 7: Section 2.3.2 - Mini-Derenzo Phantom
+# Activity: ~20 MBq of F-18
+# Acquisition time: 60 seconds
+##########################################################
+
+# Source fills the entire Derenzo phantom body
+/gate/source/addSource derenzo_source
+/gate/source/derenzo_source/setActivity 20 MBq
+/gate/source/derenzo_source/gps/particle e+
+/gate/source/derenzo_source/setForcedUnstableFlag true
+/gate/source/derenzo_source/setForcedHalfLife 6586.2 s
+/gate/source/derenzo_source/gps/energytype Fluor18
+
+# Source confined to the Derenzo phantom volume
+/gate/source/derenzo_source/gps/type Volume
+/gate/source/derenzo_source/gps/shape Cylinder
+/gate/source/derenzo_source/gps/radius 10.0 cm
+/gate/source/derenzo_source/gps/halfz 2.5 cm
+/gate/source/derenzo_source/gps/angtype iso
+/gate/source/derenzo_source/gps/centre 0. 0. 0. cm
+
+/gate/source/list

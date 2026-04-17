@@ -1,0 +1,20 @@
+##########################################################
+# 200 cm Line Source — Extended Sensitivity Test
+# Zhang et al. 2024: 10.5 MBq initial activity
+# 5 concentric Al sleeves, 1.25 mm wall thickness each
+##########################################################
+
+/gate/source/addSource sensitivity_source_200cm
+/gate/source/sensitivity_source_200cm/setActivity 10.5 MBq
+/gate/source/sensitivity_source_200cm/gps/particle e+
+/gate/source/sensitivity_source_200cm/setForcedUnstableFlag true
+/gate/source/sensitivity_source_200cm/setForcedHalfLife 6586.2 s
+/gate/source/sensitivity_source_200cm/gps/energytype Fluor18
+/gate/source/sensitivity_source_200cm/gps/type Volume
+/gate/source/sensitivity_source_200cm/gps/shape Cylinder
+/gate/source/sensitivity_source_200cm/gps/radius 0.1 cm
+/gate/source/sensitivity_source_200cm/gps/halfz 100.0 cm
+/gate/source/sensitivity_source_200cm/gps/angtype iso
+/gate/source/sensitivity_source_200cm/gps/centre 0. 0. 0. cm
+
+/gate/source/list

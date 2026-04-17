@@ -1,0 +1,22 @@
+##########################################################
+# 70cm Line Source for Sensitivity Test
+# Zhang et al. 2024: 8.9 MBq initial activity
+# NEMA NU-2 2018 Standard
+##########################################################
+
+/gate/source/addSource sensitivity_source_70cm
+/gate/source/sensitivity_source_70cm/setActivity 8.9 MBq
+/gate/source/sensitivity_source_70cm/gps/particle e+
+/gate/source/sensitivity_source_70cm/setForcedUnstableFlag true
+/gate/source/sensitivity_source_70cm/setForcedHalfLife 6586.2 s
+/gate/source/sensitivity_source_70cm/gps/energytype Fluor18
+
+# Source is confined to the inner volume of the line source phantom
+/gate/source/sensitivity_source_70cm/gps/type Volume
+/gate/source/sensitivity_source_70cm/gps/shape Cylinder
+/gate/source/sensitivity_source_70cm/gps/radius 0.1 cm
+/gate/source/sensitivity_source_70cm/gps/halfz 35.0 cm
+/gate/source/sensitivity_source_70cm/gps/angtype iso
+/gate/source/sensitivity_source_70cm/gps/centre 0. 0. 0. cm
+
+/gate/source/list

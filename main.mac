@@ -1,0 +1,42 @@
+##########################################################
+# uMI Panorama GS — Main Simulation Script
+##########################################################
+
+/control/execute mac/verbose.mac
+/gate/geometry/setMaterialDatabase data/GateMaterials.db
+
+# Geometry
+/control/execute mac/world.mac
+/control/execute mac/pet_head_PGLS.mac
+/control/execute mac/pet_digitizer_PGLS.mac
+/control/execute mac/phantom_necr_70cm.mac        # change for each test
+
+# Physics
+/control/execute mac/physics.mac
+
+# Output
+/control/execute mac/output.mac
+
+# Initialise
+/gate/run/initialize
+
+# Source
+/control/execute mac/source_necr_70cm.mac         # change for each test
+
+# Visualisation (disabled for production)
+#/control/execute mac/visu.mac
+
+/gate/random/setEngineName MersenneTwister
+/gate/random/setEngineSeed auto
+
+/run/verbose   0
+/event/verbose 0
+/tracking/verbose 0
+
+/control/execute config.mac
+
+/gate/application/setTimeStart 1 s
+/gate/application/setTimeSlice 1 s
+/gate/application/setTimeStop  2 s
+
+/gate/application/startDAQ

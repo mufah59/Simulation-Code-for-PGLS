@@ -1,0 +1,92 @@
+##########################################################
+# Point Sources for Spatial Resolution — PGLS
+# NEMA NU 2-2018: 6 positions
+# Axial positions from Zhang et al. 2024, Table 2:
+#   z = 18.5 cm  (1/8 AFOV = 148.2/8)
+#   z = 74.0 cm  (1/2 AFOV = 148.2/2)
+# Radial offsets: 1, 10, 20 cm
+##########################################################
+
+# ── Position group 1: z = 18.5 cm (1/8 AFOV) ──
+
+# Source 1: z=18.5cm, r=1cm
+/gate/source/addSource point_source_1
+/gate/source/point_source_1/setActivity 300 kBq
+/gate/source/point_source_1/gps/particle e+
+/gate/source/point_source_1/setForcedUnstableFlag true
+/gate/source/point_source_1/setForcedHalfLife 6586.2 s
+/gate/source/point_source_1/gps/energytype Fluor18
+/gate/source/point_source_1/gps/type Volume
+/gate/source/point_source_1/gps/shape Sphere
+/gate/source/point_source_1/gps/radius 0.025 cm
+/gate/source/point_source_1/gps/angtype iso
+/gate/source/point_source_1/gps/centre 1.0 0. 18.5 cm
+
+# Source 2: z=18.5cm, r=10cm
+/gate/source/addSource point_source_2
+/gate/source/point_source_2/setActivity 300 kBq
+/gate/source/point_source_2/gps/particle e+
+/gate/source/point_source_2/setForcedUnstableFlag true
+/gate/source/point_source_2/setForcedHalfLife 6586.2 s
+/gate/source/point_source_2/gps/energytype Fluor18
+/gate/source/point_source_2/gps/type Volume
+/gate/source/point_source_2/gps/shape Sphere
+/gate/source/point_source_2/gps/radius 0.025 cm
+/gate/source/point_source_2/gps/angtype iso
+/gate/source/point_source_2/gps/centre 10.0 0. 18.5 cm
+
+# Source 3: z=18.5cm, r=20cm
+/gate/source/addSource point_source_3
+/gate/source/point_source_3/setActivity 300 kBq
+/gate/source/point_source_3/gps/particle e+
+/gate/source/point_source_3/setForcedUnstableFlag true
+/gate/source/point_source_3/setForcedHalfLife 6586.2 s
+/gate/source/point_source_3/gps/energytype Fluor18
+/gate/source/point_source_3/gps/type Volume
+/gate/source/point_source_3/gps/shape Sphere
+/gate/source/point_source_3/gps/radius 0.025 cm
+/gate/source/point_source_3/gps/angtype iso
+/gate/source/point_source_3/gps/centre 20.0 0. 18.5 cm
+
+# ── Position group 2: z = 74.0 cm (1/2 AFOV) ──
+
+# Source 4: z=74.0cm, r=1cm
+/gate/source/addSource point_source_4
+/gate/source/point_source_4/setActivity 300 kBq
+/gate/source/point_source_4/gps/particle e+
+/gate/source/point_source_4/setForcedUnstableFlag true
+/gate/source/point_source_4/setForcedHalfLife 6586.2 s
+/gate/source/point_source_4/gps/energytype Fluor18
+/gate/source/point_source_4/gps/type Volume
+/gate/source/point_source_4/gps/shape Sphere
+/gate/source/point_source_4/gps/radius 0.025 cm
+/gate/source/point_source_4/gps/angtype iso
+/gate/source/point_source_4/gps/centre 1.0 0. 74.0 cm
+
+# Source 5: z=74.0cm, r=10cm
+/gate/source/addSource point_source_5
+/gate/source/point_source_5/setActivity 300 kBq
+/gate/source/point_source_5/gps/particle e+
+/gate/source/point_source_5/setForcedUnstableFlag true
+/gate/source/point_source_5/setForcedHalfLife 6586.2 s
+/gate/source/point_source_5/gps/energytype Fluor18
+/gate/source/point_source_5/gps/type Volume
+/gate/source/point_source_5/gps/shape Sphere
+/gate/source/point_source_5/gps/radius 0.025 cm
+/gate/source/point_source_5/gps/angtype iso
+/gate/source/point_source_5/gps/centre 10.0 0. 74.0 cm
+
+# Source 6: z=74.0cm, r=20cm
+/gate/source/addSource point_source_6
+/gate/source/point_source_6/setActivity 300 kBq
+/gate/source/point_source_6/gps/particle e+
+/gate/source/point_source_6/setForcedUnstableFlag true
+/gate/source/point_source_6/setForcedHalfLife 6586.2 s
+/gate/source/point_source_6/gps/energytype Fluor18
+/gate/source/point_source_6/gps/type Volume
+/gate/source/point_source_6/gps/shape Sphere
+/gate/source/point_source_6/gps/radius 0.025 cm
+/gate/source/point_source_6/gps/angtype iso
+/gate/source/point_source_6/gps/centre 20.0 0. 74.0 cm
+
+/gate/source/list

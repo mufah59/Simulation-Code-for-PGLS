@@ -1,0 +1,15 @@
+
+/gate/actor/addActor               SimulationStatisticActor stat
+/gate/actor/stat/save              output/stat.txt
+
+/gate/output/summary/enable
+/gate/output/summary/setFileName   output/digit_summary.txt
+/gate/output/summary/addCollection Singles
+/gate/output/summary/addCollection Coincidences
+
+/gate/output/root/enable
+/gate/output/root/setFileName             output/pet
+/gate/output/root/setRootHitFlag          1
+/gate/output/root/setRootSinglesFlag      1
+/gate/output/root/setRootCoincidencesFlag 1
+/gate/output/root/setRootNtupleFlag       0

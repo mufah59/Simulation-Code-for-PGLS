@@ -1,0 +1,7 @@
+# World — sized for PGLS 148.2 cm AFOV + 175 cm extended phantoms
+/gate/world/geometry/setXLength 2.0 m
+/gate/world/geometry/setYLength 2.0 m
+/gate/world/geometry/setZLength 2.0 m
+/gate/world/vis/setColor white
+/gate/world/vis/forceWireframe
+/gate/world/setMaterial Air

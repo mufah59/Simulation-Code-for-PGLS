@@ -1,0 +1,19 @@
+##########################################################
+# 175cm Extended Scatter Phantom for Count Rate Test
+#Based on Paper 7 : Chapter : 2.2.2
+# Extended phantom for total-body validation
+##########################################################
+
+# Define a cylindrical scatter phantom
+# 1750 mm length, 200 mm diameter
+/gate/world/daughters/name         phantom
+/gate/world/daughters/insert       cylinder
+/gate/phantom/geometry/setRmin     0.0 cm
+/gate/phantom/geometry/setRmax     10.0 cm
+/gate/phantom/geometry/setHeight   175.0 cm
+/gate/phantom/setMaterial          Water
+/gate/phantom/vis/setColor         blue
+/gate/phantom/vis/setVisible       1
+
+# Define the sensitive detector
+/gate/phantom/attachPhantomSD

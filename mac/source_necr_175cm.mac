@@ -1,0 +1,22 @@
+##########################################################
+# 175 cm Extended NECR Line Source — PGLS
+# Zhang et al. 2024: 2.6 GBq initial, 34 acquisitions
+# Simulate at variable activity concentrations (1-60 kBq/mL)
+##########################################################
+
+/control/execute config.mac
+
+/gate/source/addSource scatter_source_175cm
+/gate/source/scatter_source_175cm/setActivity 2000 becquerel
+/gate/source/scatter_source_175cm/gps/particle e+
+/gate/source/scatter_source_175cm/setForcedUnstableFlag true
+/gate/source/scatter_source_175cm/setForcedHalfLife 6586.2 s
+/gate/source/scatter_source_175cm/gps/energytype Fluor18
+/gate/source/scatter_source_175cm/gps/type Volume
+/gate/source/scatter_source_175cm/gps/shape Cylinder
+/gate/source/scatter_source_175cm/gps/radius 0.32 cm
+/gate/source/scatter_source_175cm/gps/halfz 87.5 cm
+/gate/source/scatter_source_175cm/gps/angtype iso
+/gate/source/scatter_source_175cm/gps/centre 0.45 0. 0. cm
+
+/gate/source/list

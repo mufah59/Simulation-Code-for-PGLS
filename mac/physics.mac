@@ -1,0 +1,22 @@
+/control/execute config.mac
+
+/gate/physics/addPhysicsList emstandard_opt4
+
+# Large cuts for world (irrelevant particles)
+/gate/physics/Gamma/SetCutInRegion      world 1 km
+/gate/physics/Electron/SetCutInRegion   world 1 km
+/gate/physics/Positron/SetCutInRegion   world 1 km
+
+# Fine cuts for phantom
+/gate/physics/Gamma/SetCutInRegion      phantom 1 mm
+/gate/physics/Electron/SetCutInRegion   phantom 1 mm
+/gate/physics/Positron/SetCutInRegion   phantom 1 mm
+
+# Fine cuts for LYSO crystal
+/gate/physics/Gamma/SetCutInRegion      LYSO 1 mm
+/gate/physics/Electron/SetCutInRegion   LYSO 1 mm
+/gate/physics/Positron/SetCutInRegion   LYSO 1 mm
+
+/gate/physics/processList Enabled
+/gate/physics/processList Initialized
+/gate/physics/addProcess annihilation

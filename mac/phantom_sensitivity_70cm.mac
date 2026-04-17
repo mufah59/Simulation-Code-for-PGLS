@@ -1,0 +1,29 @@
+##########################################################
+# 70cm Line Source Phantom for Sensitivity Test
+# NEMA NU-2 2018 Standard
+##########################################################
+
+# Polyethylene tube (outer)
+# 700 mm length, 3.2 mm outer diameter, 2 mm inner diameter
+/gate/world/daughters/name                sensitivity_tube_70cm
+/gate/world/daughters/insert              cylinder
+/gate/sensitivity_tube_70cm/geometry/setRmin   0.1 cm
+/gate/sensitivity_tube_70cm/geometry/setRmax   0.16 cm
+/gate/sensitivity_tube_70cm/geometry/setHeight 70.0 cm
+/gate/sensitivity_tube_70cm/setMaterial        Polyethylene
+/gate/sensitivity_tube_70cm/vis/setColor       white
+/gate/sensitivity_tube_70cm/vis/setVisible     1
+
+# Water + F-18 activity inside the tube (inner diameter 2 mm)
+# Named "phantom" for physics cuts compatibility
+/gate/world/daughters/name                phantom
+/gate/world/daughters/insert              cylinder
+/gate/phantom/geometry/setRmin   0.0 cm
+/gate/phantom/geometry/setRmax   0.1 cm
+/gate/phantom/geometry/setHeight 70.0 cm
+/gate/phantom/setMaterial        Water
+/gate/phantom/vis/setColor       cyan
+/gate/phantom/vis/setVisible     1
+
+# Attach phantom SD to track events
+/gate/phantom/attachPhantomSD

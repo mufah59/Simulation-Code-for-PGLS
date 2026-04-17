@@ -1,0 +1,27 @@
+##########################################################
+# GATE Configuration — uMI Panorama GS (PGLS)
+# Reference: Zhang et al., J Nucl Med 2024;65:1974-1982
+##########################################################
+
+/control/alias PHYSICS_LIST emstandard_opt4
+
+# Production cuts (mm)
+/control/alias CUT_PHANTOM 1.0
+/control/alias CUT_LYSO    1.0
+
+# Energy resolution: 11.7% FWHM at 511 keV (system specification)
+/control/alias ENERGY_RESOLUTION 0.117
+
+# Energy window (keV)
+/control/alias ENERGY_WINDOW_MIN 430.
+/control/alias ENERGY_WINDOW_MAX 650.
+
+# Source activities (Becquerels)
+/control/alias SOURCE_ACTIVITY        100000.
+/control/alias SCATTER_70CM_ACTIVITY  100000.
+/control/alias SCATTER_175CM_ACTIVITY 100000.
+
+# Acquisition timing (seconds)
+/control/alias ACQ_TIME_START 0
+/control/alias ACQ_TIME_SLICE 1
+/control/alias ACQ_TIME_STOP  1

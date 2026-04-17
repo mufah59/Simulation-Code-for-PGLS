@@ -1,0 +1,28 @@
+##########################################################
+# 70cm Scatter Phantom Line Source for Count Rate Test
+# Paper 7: Section 2.2.2 - Count Rate Performance
+# NEMA NU-2 2018 Standard
+# Acquisition time: 1 second
+##########################################################
+
+/control/execute config.mac
+
+# Line source positioned 4.5 mm off-center inside scatter phantom
+# Line source diameter: 6.4 mm (radius 0.32 cm)
+/gate/source/addSource scatter_source_70cm
+/gate/source/scatter_source_70cm/setActivity 2000 becquerel
+/gate/source/scatter_source_70cm/gps/particle e+
+/gate/source/scatter_source_70cm/setForcedUnstableFlag true
+/gate/source/scatter_source_70cm/setForcedHalfLife 6586.2 s
+/gate/source/scatter_source_70cm/gps/energytype Fluor18
+#2Kbq/cc_there_would_be_more_like_4_5_7_9_10_12_14_15_16_17_18_&20KBq/cc__as_per_Paper 7
+
+# Source is a cylinder positioned 4.5mm off-center
+/gate/source/scatter_source_70cm/gps/type Volume
+/gate/source/scatter_source_70cm/gps/shape Cylinder
+/gate/source/scatter_source_70cm/gps/radius 0.32 cm
+/gate/source/scatter_source_70cm/gps/halfz 35.0 cm
+/gate/source/scatter_source_70cm/gps/angtype iso
+/gate/source/scatter_source_70cm/gps/centre 0.45 0. 0. cm
+
+/gate/source/list

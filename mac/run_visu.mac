@@ -1,0 +1,20 @@
+# Commands to run after Gate is initialized
+# Use these in the interactive console
+
+# First, enable visualization
+/vis/viewer/set/autoRefresh true
+/vis/viewer/flush
+
+# Run the acquisition
+/gate/application/startDAQ
+
+# After it completes, refresh the view
+/vis/viewer/flush
+/vis/viewer/refresh
+
+# To see individual events, you can use:
+# /vis/reviewKeptEvents
+
+# To run more events, change the time and run again:
+# /gate/application/setTimeStop 2.0 s
+# /gate/application/startDAQ

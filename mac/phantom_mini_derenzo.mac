@@ -1,0 +1,36 @@
+##########################################################
+# Mini-Derenzo Phantom for Spatial Resolution Evaluation
+# Paper 7: Section 2.3.2 - Mini-Derenzo Phantom
+# Contains 6 rod segments with diameters: 1.2, 1.6, 2.4, 3.2, 4.0, 4.8 mm
+##########################################################
+
+# NOTE: Creating a full Derenzo phantom in GATE is complex and requires
+# multiple rod definitions. This is a simplified template.
+# For a complete implementation, you would need to define each rod individually
+# or use a custom phantom geometry file.
+
+# Main Derenzo phantom body (water-filled cylinder)
+/gate/world/daughters/name         phantom
+/gate/world/daughters/insert       cylinder
+/gate/phantom/geometry/setRmin     0.0 cm
+/gate/phantom/geometry/setRmax     10.0 cm
+/gate/phantom/geometry/setHeight   5.0 cm
+/gate/phantom/setMaterial          Water
+/gate/phantom/vis/setColor         blue
+/gate/phantom/vis/setVisible       1
+
+##########################################################
+# ROD SEGMENTS
+# Each segment would contain multiple rods arranged in a pattern
+# This requires detailed geometric positioning
+# For full implementation, see GATE Derenzo phantom examples
+##########################################################
+
+# Attach phantom SD
+/gate/phantom/attachPhantomSD
+
+# NOTE: A complete Derenzo phantom requires defining individual rods
+# with precise spacing based on rod diameter.
+# Paper 7 used rod diameters: 1.2, 1.6, 2.4, 3.2, 4.0, 4.8 mm
+# Rod spacing = 2 × diameter
+# This would require ~100+ individual rod definitions

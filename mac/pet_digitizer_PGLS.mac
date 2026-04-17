@@ -1,0 +1,60 @@
+##########################################################
+# PGLS Digitizer Chain
+# Zhang et al., J Nucl Med 2024;65:1974-1982
+##########################################################
+
+# 1. SINGLES PROCESSING
+
+# 1.1 Adder: sum energy deposits within one crystal
+/gate/digitizerMgr/crystal/SinglesDigitizer/Singles/insert adder
+/gate/digitizerMgr/crystal/SinglesDigitizer/Singles/adder/positionPolicy energyWeightedCentroid
+
+# 1.2 Readout: SiPM readout at microblock level (depth 1)
+/gate/digitizerMgr/crystal/SinglesDigitizer/Singles/insert readout
+/gate/digitizerMgr/crystal/SinglesDigitizer/Singles/readout/setDepth 1
+
+# 1.3 Energy resolution: 11.7% FWHM at 511 keV (system spec)
+/gate/digitizerMgr/crystal/SinglesDigitizer/Singles/insert energyResolution
+/gate/digitizerMgr/crystal/SinglesDigitizer/Singles/energyResolution/fwhm 0.117
+/gate/digitizerMgr/crystal/SinglesDigitizer/Singles/energyResolution/energyOfReference 511. keV
+
+# 1.4 Timing resolution: 133.6 ps FWHM per single detector
+# Derived from CTR = 189 ps via: STR = CTR/sqrt(2) = 133.6 ps
+/gate/digitizerMgr/crystal/SinglesDigitizer/Singles/insert timeResolution
+/gate/digitizerMgr/crystal/SinglesDigitizer/Singles/timeResolution/fwhm 133.6 ps
+
+# 1.5 Energy window: 430-650 keV
+/gate/digitizerMgr/crystal/SinglesDigitizer/Singles/insert energyFraming
+/gate/digitizerMgr/crystal/SinglesDigitizer/Singles/energyFraming/setMin 430. keV
+/gate/digitizerMgr/crystal/SinglesDigitizer/Singles/energyFraming/setMax 650. keV
+
+# --------------------------------------------------------
+# 2. COINCIDENCE SORTING
+#
+# PGLS has 3 detector units. The coincidence window depends on
+# which units are paired (unit difference = 0, 1, or 2):
+#   Unit diff 0: 4.7 ns (same unit)
+#   Unit diff 1: 6.2 ns (adjacent units)
+#   Unit diff 2: 8.3 ns (opposite units)
+#
+# GATE does not support per-unit-difference windows natively.
+# We use the widest window (8.3 ns) to accept all valid coincidences
+# across the full 148.2 cm AFOV. This slightly overestimates randoms
+# for short-unit-difference pairs but is the correct approach for
+# GATE simulations of multi-unit LAFOV systems.
+# --------------------------------------------------------
+
+# 2.1 Prompt coincidence sorter
+/gate/digitizerMgr/CoincidenceSorter/Coincidences/setInputCollection Singles_crystal
+/gate/digitizerMgr/CoincidenceSorter/Coincidences/setWindow 8.3 ns
+/gate/digitizerMgr/CoincidenceSorter/Coincidences/setOffset 0. ns
+/gate/digitizerMgr/CoincidenceSorter/Coincidences/minSectorDifference 1
+/gate/digitizerMgr/CoincidenceSorter/Coincidences/MultiplesPolicy takeAllGoods
+
+# 2.2 Delayed coincidence sorter for randoms estimation
+/gate/digitizerMgr/name delayed
+/gate/digitizerMgr/insert CoincidenceSorter
+/gate/digitizerMgr/delayed/setInputCollection Singles_crystal
+/gate/digitizerMgr/delayed/setWindow 8.3 ns
+/gate/digitizerMgr/delayed/setOffset 100.0 ns
+/gate/digitizerMgr/delayed/MultiplesPolicy takeAllGoods

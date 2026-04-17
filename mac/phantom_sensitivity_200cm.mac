@@ -1,0 +1,27 @@
+##########################################################
+# 200 cm Extended Line Source Phantom — Sensitivity Test
+# PGLS: required because AFOV = 148.2 cm
+# Zhang et al. 2024: "2-m line source (10.5 MBq)"
+##########################################################
+
+# Polyethylene outer tube (200 cm long)
+/gate/world/daughters/name                sensitivity_tube_200cm
+/gate/world/daughters/insert              cylinder
+/gate/sensitivity_tube_200cm/geometry/setRmin   0.1 cm
+/gate/sensitivity_tube_200cm/geometry/setRmax   0.16 cm
+/gate/sensitivity_tube_200cm/geometry/setHeight 200.0 cm
+/gate/sensitivity_tube_200cm/setMaterial        Polyethylene
+/gate/sensitivity_tube_200cm/vis/setColor       white
+/gate/sensitivity_tube_200cm/vis/setVisible     1
+
+# Water inner core (activity region, 2 mm inner diameter)
+/gate/world/daughters/name                phantom
+/gate/world/daughters/insert              cylinder
+/gate/phantom/geometry/setRmin   0.0 cm
+/gate/phantom/geometry/setRmax   0.1 cm
+/gate/phantom/geometry/setHeight 200.0 cm
+/gate/phantom/setMaterial        Water
+/gate/phantom/vis/setColor       cyan
+/gate/phantom/vis/setVisible     1
+
+/gate/phantom/attachPhantomSD

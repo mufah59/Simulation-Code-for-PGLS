@@ -1,0 +1,103 @@
+#=====================================================
+# uMI Panorama GS Detector Geometry
+# Zhang et al., J Nucl Med 2024;65:1974-1982, Table 1
+# AFOV: 148.2 cm | Transaxial FOV: 76.0 cm | LYSO
+#=====================================================
+
+# CYLINDRICAL PET ENVELOPE
+/gate/world/daughters/name cylindricalPET
+/gate/world/daughters/insert cylinder
+/gate/cylindricalPET/placement/setTranslation 0.0 0.0 0.0 cm
+/gate/cylindricalPET/geometry/setRmax 42.0 cm
+/gate/cylindricalPET/geometry/setRmin 0 cm
+/gate/cylindricalPET/geometry/setHeight 148.2 cm
+/gate/cylindricalPET/setMaterial Air
+/gate/cylindricalPET/vis/forceWireframe
+/gate/cylindricalPET/vis/setColor white
+
+# DETECTOR UNIT (rsector)
+# 3 units axially; each unit = 148.2/3 = 49.4 cm
+# 34 cells transaxially per unit
+/gate/cylindricalPET/daughters/name unit
+/gate/cylindricalPET/daughters/insert box
+/gate/unit/placement/setTranslation 0.0 0.0 0.0 cm
+/gate/unit/geometry/setXLength 8.55 cm
+/gate/unit/geometry/setYLength 2.0 cm
+/gate/unit/geometry/setZLength 49.4 cm
+/gate/unit/setMaterial Air
+/gate/unit/vis/setVisible 0
+
+# DETECTOR CELL (module)
+# 7 cells axially per unit; each cell = 49.4/7 = 7.057 cm
+# 8x8 microblock array per cell
+/gate/unit/daughters/name cell
+/gate/unit/daughters/insert box
+/gate/cell/placement/setTranslation 0.0 0.0 0.0 cm
+/gate/cell/geometry/setXLength 6.84 cm
+/gate/cell/geometry/setYLength 1.81 cm
+/gate/cell/geometry/setZLength 7.057 cm
+/gate/cell/setMaterial Air
+/gate/cell/vis/setVisible 0
+
+# MICROBLOCK (submodule)
+# 3x3 LYSO crystals; pitch 2.85 mm → footprint 8.55 x 8.55 mm
+/gate/cell/daughters/name microblock
+/gate/cell/daughters/insert box
+/gate/microblock/placement/setTranslation 0.0 0.0 0.0 cm
+/gate/microblock/geometry/setXLength 8.55 mm
+/gate/microblock/geometry/setYLength 18.1 mm
+/gate/microblock/geometry/setZLength 8.55 mm
+/gate/microblock/setMaterial Air
+/gate/microblock/vis/setVisible 0
+
+# CRYSTAL (sensitive volume)
+# 2.76 x 2.76 x 18.1 mm3 LYSO
+/gate/microblock/daughters/name crystal
+/gate/microblock/daughters/insert box
+/gate/crystal/placement/setTranslation 0.0 0.0 0.0 cm
+/gate/crystal/geometry/setXLength 2.76 mm
+/gate/crystal/geometry/setYLength 18.1 mm
+/gate/crystal/geometry/setZLength 2.76 mm
+/gate/crystal/setMaterial LYSO
+/gate/crystal/vis/setColor green
+/gate/crystal/vis/setVisible 1
+
+# REPEAT: 3x3 crystals within each microblock (pitch 2.85 mm)
+/gate/crystal/repeaters/insert cubicArray
+/gate/crystal/cubicArray/setRepeatNumberX 3
+/gate/crystal/cubicArray/setRepeatNumberY 1
+/gate/crystal/cubicArray/setRepeatNumberZ 3
+/gate/crystal/cubicArray/setRepeatVector 2.85 0.0 2.85 mm
+
+# REPEAT: 8x8 microblocks within each cell
+/gate/microblock/repeaters/insert cubicArray
+/gate/microblock/cubicArray/setRepeatNumberX 8
+/gate/microblock/cubicArray/setRepeatNumberY 1
+/gate/microblock/cubicArray/setRepeatNumberZ 8
+/gate/microblock/cubicArray/setRepeatVector 8.55 0.0 8.55 mm
+
+# REPEAT: 7 cells axially per unit
+/gate/cell/repeaters/insert linear
+/gate/cell/linear/setRepeatNumber 7
+/gate/cell/linear/setRepeatVector 0.0 0.0 7.057 cm
+
+# REPEAT: 34 units around the ring
+/gate/unit/repeaters/insert ring
+/gate/unit/ring/setRepeatNumber 34
+/gate/unit/ring/setRadius 36.5 cm
+
+# REPEAT: 3 detector units along axial direction
+/gate/unit/repeaters/insert linear
+/gate/unit/linear/setRepeatNumber 3
+/gate/unit/linear/setRepeatVector 0.0 0.0 49.4 cm
+
+# ATTACH HIERARCHY
+/gate/systems/cylindricalPET/rsector/attach    unit
+/gate/systems/cylindricalPET/module/attach     cell
+/gate/systems/cylindricalPET/submodule/attach  microblock
+/gate/systems/cylindricalPET/crystal/attach    crystal
+
+# ATTACH SENSITIVE DETECTOR
+/gate/crystal/attachCrystalSD
+
+/gate/systems/cylindricalPET/describe
