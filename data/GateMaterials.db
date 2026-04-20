@@ -484,3 +484,8 @@ Epoxy:  d=1.0 g/cm3; n=3; state=Solid
 Carbide: d=15.8 g/cm3; n=2 ; state=Solid
         +el: name=Tungsten   ; n=1
         +el: name=Carbon     ; n=1
+
+# Styrofoam (low-density polystyrene per NEMA NU 2-2018 IQ phantom lung insert)
+Styrofoam: d=0.30 g/cm3 ; n=2 ; state=solid
+        +el: name=Carbon   ; f=0.9226
+        +el: name=Hydrogen ; f=0.0774

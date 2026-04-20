@@ -1,0 +1,196 @@
+# ====================================================================
+# NEMA NU 2-2018 Image Quality (IQ) Phantom Geometry
+# Reference standard: IEC 61675-1
+# Scanner-independent — no digitizer or scanner geometry in this file
+# ====================================================================
+# Volume inventory (15 total):
+#   1  iq_body_outer    — PMMA elliptical shell
+#   2  iq_body_inner    — Water fill (elliptical cylinder)
+#   3  iq_lung          — Styrofoam cold lung insert
+#   4  iq_sphere37_shell  +  5  iq_sphere37   (37 mm)
+#   6  iq_sphere28_shell  +  7  iq_sphere28   (28 mm)
+#   8  iq_sphere22_shell  +  9  iq_sphere22   (22 mm)
+#  10  iq_sphere17_shell  + 11  iq_sphere17   (17 mm)
+#  12  iq_sphere13_shell  + 13  iq_sphere13   (13 mm)
+#  14  iq_sphere10_shell  + 15  iq_sphere10   (10 mm)
+# ====================================================================
+
+/gate/geometry/setMaterialDatabase GateMaterials.db
+
+# ====================================================================
+# BODY PHANTOM — IEC elliptical cylinder
+# Interior cross-section: 300 mm (X) x 230 mm (Y); length 180 mm (Z)
+# Wall: 3 mm PMMA on all sides (outer semi-axes 153 x 118 mm)
+# eltubs = G4EllipticalTube in Geant4, supported in GATE 9.x
+# ====================================================================
+
+# Outer PMMA shell
+/gate/world/daughters/name                    iq_body_outer
+/gate/world/daughters/insert                  eltubs
+/gate/iq_body_outer/geometry/setXSemiAxis     153.0 mm
+/gate/iq_body_outer/geometry/setYSemiAxis     118.0 mm
+/gate/iq_body_outer/geometry/setZLength       186.0 mm
+/gate/iq_body_outer/setMaterial               PMMA
+/gate/iq_body_outer/placement/setTranslation  0.0 0.0 0.0 mm
+/gate/iq_body_outer/vis/setColor              white
+/gate/iq_body_outer/vis/setVisible            1
+
+# Inner water fill
+/gate/iq_body_outer/daughters/name            iq_body_inner
+/gate/iq_body_outer/daughters/insert          eltubs
+/gate/iq_body_inner/geometry/setXSemiAxis     150.0 mm
+/gate/iq_body_inner/geometry/setYSemiAxis     115.0 mm
+/gate/iq_body_inner/geometry/setZLength       180.0 mm
+/gate/iq_body_inner/setMaterial               Water
+/gate/iq_body_inner/placement/setTranslation  0.0 0.0 0.0 mm
+/gate/iq_body_inner/vis/setColor              blue
+/gate/iq_body_inner/vis/setVisible            1
+
+/gate/iq_body_inner/attachPhantomSD
+
+# ====================================================================
+# LUNG INSERT — Cold, no activity
+# Diameter: 51 mm (radius 25.5 mm), Length: 180 mm
+# Material: Styrofoam (low-density polystyrene, d = 0.30 g/cm3)
+# NEMA NU 2-2018 Sec. 3.3: cold lung-equivalent insert centred in phantom
+# Styrofoam must be defined in GateMaterials.db (see project data/ folder)
+# ====================================================================
+
+/gate/iq_body_inner/daughters/name            iq_lung
+/gate/iq_body_inner/daughters/insert          cylinder
+/gate/iq_lung/geometry/setRmax                25.5 mm
+/gate/iq_lung/geometry/setRmin                0.0 mm
+/gate/iq_lung/geometry/setHeight              180.0 mm
+/gate/iq_lung/setMaterial                     Styrofoam
+/gate/iq_lung/placement/setTranslation        0.0 0.0 0.0 mm
+/gate/iq_lung/vis/setColor                    grey
+/gate/iq_lung/vis/setVisible                  1
+
+/gate/iq_lung/attachPhantomSD
+
+# ====================================================================
+# HOT SPHERES — 6 fillable glass spheres per IEC 61675-1
+# Shell material: Glass (1 mm thick wall)
+# Fill material:  Water
+# Sphere centres on the ring defined by IEC positions at Z = 0
+# All spheres are daughters of iq_body_inner.
+#
+# Geometry overlap check (lung-sphere clearance):
+#   Min sphere-centre-to-origin distance = 57.20 mm (S22, S10)
+#   Lung radius = 25.5 mm  ->  gap = 57.20 - 25.5 = 31.70 mm
+#   Largest sphere outer radius = 19.50 mm (S37)  ->  31.70 > 19.50  OK
+# ====================================================================
+
+# --- Sphere 37 mm inner diameter --- centre: (+28.65, +57.20, 0.0) mm ---
+/gate/iq_body_inner/daughters/name               iq_sphere37_shell
+/gate/iq_body_inner/daughters/insert             sphere
+/gate/iq_sphere37_shell/geometry/setRmax         19.50 mm
+/gate/iq_sphere37_shell/geometry/setRmin         0.0 mm
+/gate/iq_sphere37_shell/setMaterial              Glass
+/gate/iq_sphere37_shell/placement/setTranslation 28.65 57.20 0.0 mm
+/gate/iq_sphere37_shell/vis/setColor             yellow
+/gate/iq_sphere37_shell/vis/setVisible           1
+
+/gate/iq_sphere37_shell/daughters/name           iq_sphere37
+/gate/iq_sphere37_shell/daughters/insert         sphere
+/gate/iq_sphere37/geometry/setRmax               18.50 mm
+/gate/iq_sphere37/geometry/setRmin               0.0 mm
+/gate/iq_sphere37/setMaterial                    Water
+/gate/iq_sphere37/placement/setTranslation       0.0 0.0 0.0 mm
+/gate/iq_sphere37/vis/setColor                   red
+/gate/iq_sphere37/vis/setVisible                 1
+
+# --- Sphere 28 mm inner diameter --- centre: (-28.65, +57.20, 0.0) mm ---
+/gate/iq_body_inner/daughters/name               iq_sphere28_shell
+/gate/iq_body_inner/daughters/insert             sphere
+/gate/iq_sphere28_shell/geometry/setRmax         15.00 mm
+/gate/iq_sphere28_shell/geometry/setRmin         0.0 mm
+/gate/iq_sphere28_shell/setMaterial              Glass
+/gate/iq_sphere28_shell/placement/setTranslation -28.65 57.20 0.0 mm
+/gate/iq_sphere28_shell/vis/setColor             yellow
+/gate/iq_sphere28_shell/vis/setVisible           1
+
+/gate/iq_sphere28_shell/daughters/name           iq_sphere28
+/gate/iq_sphere28_shell/daughters/insert         sphere
+/gate/iq_sphere28/geometry/setRmax               14.00 mm
+/gate/iq_sphere28/geometry/setRmin               0.0 mm
+/gate/iq_sphere28/setMaterial                    Water
+/gate/iq_sphere28/placement/setTranslation       0.0 0.0 0.0 mm
+/gate/iq_sphere28/vis/setColor                   red
+/gate/iq_sphere28/vis/setVisible                 1
+
+# --- Sphere 22 mm inner diameter --- centre: (-57.20, 0.0, 0.0) mm ---
+/gate/iq_body_inner/daughters/name               iq_sphere22_shell
+/gate/iq_body_inner/daughters/insert             sphere
+/gate/iq_sphere22_shell/geometry/setRmax         12.00 mm
+/gate/iq_sphere22_shell/geometry/setRmin         0.0 mm
+/gate/iq_sphere22_shell/setMaterial              Glass
+/gate/iq_sphere22_shell/placement/setTranslation -57.20 0.0 0.0 mm
+/gate/iq_sphere22_shell/vis/setColor             yellow
+/gate/iq_sphere22_shell/vis/setVisible           1
+
+/gate/iq_sphere22_shell/daughters/name           iq_sphere22
+/gate/iq_sphere22_shell/daughters/insert         sphere
+/gate/iq_sphere22/geometry/setRmax               11.00 mm
+/gate/iq_sphere22/geometry/setRmin               0.0 mm
+/gate/iq_sphere22/setMaterial                    Water
+/gate/iq_sphere22/placement/setTranslation       0.0 0.0 0.0 mm
+/gate/iq_sphere22/vis/setColor                   red
+/gate/iq_sphere22/vis/setVisible                 1
+
+# --- Sphere 17 mm inner diameter --- centre: (-28.65, -57.20, 0.0) mm ---
+/gate/iq_body_inner/daughters/name               iq_sphere17_shell
+/gate/iq_body_inner/daughters/insert             sphere
+/gate/iq_sphere17_shell/geometry/setRmax         9.50 mm
+/gate/iq_sphere17_shell/geometry/setRmin         0.0 mm
+/gate/iq_sphere17_shell/setMaterial              Glass
+/gate/iq_sphere17_shell/placement/setTranslation -28.65 -57.20 0.0 mm
+/gate/iq_sphere17_shell/vis/setColor             yellow
+/gate/iq_sphere17_shell/vis/setVisible           1
+
+/gate/iq_sphere17_shell/daughters/name           iq_sphere17
+/gate/iq_sphere17_shell/daughters/insert         sphere
+/gate/iq_sphere17/geometry/setRmax               8.50 mm
+/gate/iq_sphere17/geometry/setRmin               0.0 mm
+/gate/iq_sphere17/setMaterial                    Water
+/gate/iq_sphere17/placement/setTranslation       0.0 0.0 0.0 mm
+/gate/iq_sphere17/vis/setColor                   red
+/gate/iq_sphere17/vis/setVisible                 1
+
+# --- Sphere 13 mm inner diameter --- centre: (+28.65, -57.20, 0.0) mm ---
+/gate/iq_body_inner/daughters/name               iq_sphere13_shell
+/gate/iq_body_inner/daughters/insert             sphere
+/gate/iq_sphere13_shell/geometry/setRmax         7.50 mm
+/gate/iq_sphere13_shell/geometry/setRmin         0.0 mm
+/gate/iq_sphere13_shell/setMaterial              Glass
+/gate/iq_sphere13_shell/placement/setTranslation 28.65 -57.20 0.0 mm
+/gate/iq_sphere13_shell/vis/setColor             yellow
+/gate/iq_sphere13_shell/vis/setVisible           1
+
+/gate/iq_sphere13_shell/daughters/name           iq_sphere13
+/gate/iq_sphere13_shell/daughters/insert         sphere
+/gate/iq_sphere13/geometry/setRmax               6.50 mm
+/gate/iq_sphere13/geometry/setRmin               0.0 mm
+/gate/iq_sphere13/setMaterial                    Water
+/gate/iq_sphere13/placement/setTranslation       0.0 0.0 0.0 mm
+/gate/iq_sphere13/vis/setColor                   red
+/gate/iq_sphere13/vis/setVisible                 1
+
+# --- Sphere 10 mm inner diameter --- centre: (+57.20, 0.0, 0.0) mm ---
+/gate/iq_body_inner/daughters/name               iq_sphere10_shell
+/gate/iq_body_inner/daughters/insert             sphere
+/gate/iq_sphere10_shell/geometry/setRmax         6.00 mm
+/gate/iq_sphere10_shell/geometry/setRmin         0.0 mm
+/gate/iq_sphere10_shell/setMaterial              Glass
+/gate/iq_sphere10_shell/placement/setTranslation 57.20 0.0 0.0 mm
+/gate/iq_sphere10_shell/vis/setColor             yellow
+/gate/iq_sphere10_shell/vis/setVisible           1
+
+/gate/iq_sphere10_shell/daughters/name           iq_sphere10
+/gate/iq_sphere10_shell/daughters/insert         sphere
+/gate/iq_sphere10/geometry/setRmax               5.00 mm
+/gate/iq_sphere10/geometry/setRmin               0.0 mm
+/gate/iq_sphere10/setMaterial                    Water
+/gate/iq_sphere10/placement/setTranslation       0.0 0.0 0.0 mm
+/gate/iq_sphere10/vis/setColor                   red
+/gate/iq_sphere10/vis/setVisible                 1

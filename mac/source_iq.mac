@@ -1,0 +1,194 @@
+# ====================================================================
+# NEMA NU 2-2018 Image Quality Source Configuration
+# Reference standard: IEC 61675-1
+# Scanner-independent — no digitizer or timing parameters in this file
+# Source type: back-to-back 511 keV gammas (F-18 PET tracer)
+# ====================================================================
+#
+# ACTIVITY REFERENCE
+# ------------------
+# Background fill volume (elliptical body phantom, water only):
+#   V_body = pi * 150 mm * 115 mm * 180 mm = ~9,754,000 mm3 ~ 9754 mL
+#   (Common cited value in literature: ~9700 mL; used below for reference)
+#   Typical background concentration: 5.3 kBq/mL
+#   Total background activity: 5.3 kBq/mL x 9700 mL = 51,410 kBq = 51.41 MBq
+#
+# Sphere volumes (inner radius r, V = 4/3 * pi * r^3):
+#   V_37 = (4/3)*pi*(18.5 mm)^3 =  26,522 mm3 =  26.522 mL
+#   V_28 = (4/3)*pi*(14.0 mm)^3 =  11,494 mm3 =  11.494 mL
+#   V_22 = (4/3)*pi*(11.0 mm)^3 =   5,575 mm3 =   5.575 mL
+#   V_17 = (4/3)*pi*( 8.5 mm)^3 =   2,572 mm3 =   2.572 mL
+#   V_13 = (4/3)*pi*( 6.5 mm)^3 =   1,150 mm3 =   1.150 mL
+#   V_10 = (4/3)*pi*( 5.0 mm)^3 =     524 mm3 =   0.524 mL
+#
+# ACTIVITY LOOKUP TABLE:
+# +---------+-----------+---------------------+---------------------+
+# | Sphere  | Vol (mL)  |  SBR 4:1 (Bq)       |  SBR 8:1 (Bq)       |
+# |         |           | conc = 21.2 kBq/mL  | conc = 42.4 kBq/mL  |
+# +---------+-----------+---------------------+---------------------+
+# | 37 mm   |  26.522   |       562,266       |     1,124,531       |
+# | 28 mm   |  11.494   |       243,673       |       487,346       |
+# | 22 mm   |   5.575   |       118,190       |       236,380       |
+# | 17 mm   |   2.572   |        54,526       |       109,053       |
+# | 13 mm   |   1.150   |        24,378       |        48,756       |
+# | 10 mm   |   0.524   |        11,109       |        22,217       |
+# +---------+-----------+---------------------+---------------------+
+# Background: 51,410,000 Bq = 51.41 MBq  (same for both SBR values)
+# Lung insert: NO source (cold insert)
+#
+# DEFAULT VALUES LOADED BELOW: SBR 4:1 with 5.3 kBq/mL background
+# To switch to SBR 8:1, multiply each sphere activity by 2.
+#
+# HALF-LIFE: F-18, T_1/2 = 6586.2 s (109.77 min)
+# ====================================================================
+
+# ====================================================================
+# BACKGROUND SOURCE
+# Confined to iq_body_inner (water-filled elliptical cylinder).
+# GATE's confine mechanism generates points in the GPS Cylinder and
+# accepts only those inside iq_body_inner — this automatically
+# excludes all daughter volumes (lung insert, sphere shells, sphere
+# fills), so no activity appears in cold or hot inserts.
+#
+# GPS shape: Cylinder (radius = 115 mm = minor semi-axis of the
+# ellipse). All generated points lie within the elliptical boundary,
+# so confinement rejection is minimal and efficiency is high.
+# The confine to iq_body_inner provides the definitive boundary check.
+#
+# NOTE: If your GATE build supports the EllipticCylinder GPS shape,
+# replace "shape Cylinder / radius 115.0 mm" with:
+#   /gate/source/bg/gps/shape   EllipticCylinder
+#   /gate/source/bg/gps/halfx   150.0 mm
+#   /gate/source/bg/gps/halfy   115.0 mm
+# and remove the radius line. Both approaches give correct results;
+# EllipticCylinder is marginally more efficient.
+# ====================================================================
+
+/gate/source/addSource                           bg
+/gate/source/bg/setActivity                      51410000 Bq
+/gate/source/bg/setForcedUnstableFlag            true
+/gate/source/bg/setForcedHalfLife                6586.2 s
+/gate/source/bg/setType                          backtoback
+/gate/source/bg/gps/particle                     gamma
+/gate/source/bg/gps/energytype                   Mono
+/gate/source/bg/gps/monoenergy                   0.511 MeV
+/gate/source/bg/gps/type                         Volume
+/gate/source/bg/gps/shape                        Cylinder
+/gate/source/bg/gps/radius                       115.0 mm
+/gate/source/bg/gps/halfz                        90.0 mm
+/gate/source/bg/gps/centre                       0.0 0.0 0.0 mm
+/gate/source/bg/gps/confine                      iq_body_inner
+/gate/source/bg/gps/angtype                      iso
+/gate/source/bg/dump                             1
+
+# ====================================================================
+# SPHERE SOURCES — SBR 4:1 (default)
+# Each source is confined to the inner fill volume of its sphere.
+# The GPS Sphere radius matches the inner sphere radius exactly, so
+# nearly all generated points pass the confine check (high efficiency).
+# Sphere centre coordinates are in world (scanner isocenter) frame.
+# ====================================================================
+
+# --- Sphere 37 mm inner diameter --- centre: (+28.65, +57.20, 0.0) mm ---
+/gate/source/addSource                           sphere37
+/gate/source/sphere37/setActivity                562266 Bq
+/gate/source/sphere37/setForcedUnstableFlag      true
+/gate/source/sphere37/setForcedHalfLife          6586.2 s
+/gate/source/sphere37/setType                    backtoback
+/gate/source/sphere37/gps/particle               gamma
+/gate/source/sphere37/gps/energytype             Mono
+/gate/source/sphere37/gps/monoenergy             0.511 MeV
+/gate/source/sphere37/gps/type                   Volume
+/gate/source/sphere37/gps/shape                  Sphere
+/gate/source/sphere37/gps/radius                 18.50 mm
+/gate/source/sphere37/gps/centre                 28.65 57.20 0.0 mm
+/gate/source/sphere37/gps/confine                iq_sphere37
+/gate/source/sphere37/gps/angtype                iso
+/gate/source/sphere37/dump                       1
+
+# --- Sphere 28 mm inner diameter --- centre: (-28.65, +57.20, 0.0) mm ---
+/gate/source/addSource                           sphere28
+/gate/source/sphere28/setActivity                243673 Bq
+/gate/source/sphere28/setForcedUnstableFlag      true
+/gate/source/sphere28/setForcedHalfLife          6586.2 s
+/gate/source/sphere28/setType                    backtoback
+/gate/source/sphere28/gps/particle               gamma
+/gate/source/sphere28/gps/energytype             Mono
+/gate/source/sphere28/gps/monoenergy             0.511 MeV
+/gate/source/sphere28/gps/type                   Volume
+/gate/source/sphere28/gps/shape                  Sphere
+/gate/source/sphere28/gps/radius                 14.00 mm
+/gate/source/sphere28/gps/centre                 -28.65 57.20 0.0 mm
+/gate/source/sphere28/gps/confine                iq_sphere28
+/gate/source/sphere28/gps/angtype                iso
+/gate/source/sphere28/dump                       1
+
+# --- Sphere 22 mm inner diameter --- centre: (-57.20, 0.0, 0.0) mm ---
+/gate/source/addSource                           sphere22
+/gate/source/sphere22/setActivity                118190 Bq
+/gate/source/sphere22/setForcedUnstableFlag      true
+/gate/source/sphere22/setForcedHalfLife          6586.2 s
+/gate/source/sphere22/setType                    backtoback
+/gate/source/sphere22/gps/particle               gamma
+/gate/source/sphere22/gps/energytype             Mono
+/gate/source/sphere22/gps/monoenergy             0.511 MeV
+/gate/source/sphere22/gps/type                   Volume
+/gate/source/sphere22/gps/shape                  Sphere
+/gate/source/sphere22/gps/radius                 11.00 mm
+/gate/source/sphere22/gps/centre                 -57.20 0.0 0.0 mm
+/gate/source/sphere22/gps/confine                iq_sphere22
+/gate/source/sphere22/gps/angtype                iso
+/gate/source/sphere22/dump                       1
+
+# --- Sphere 17 mm inner diameter --- centre: (-28.65, -57.20, 0.0) mm ---
+/gate/source/addSource                           sphere17
+/gate/source/sphere17/setActivity                54526 Bq
+/gate/source/sphere17/setForcedUnstableFlag      true
+/gate/source/sphere17/setForcedHalfLife          6586.2 s
+/gate/source/sphere17/setType                    backtoback
+/gate/source/sphere17/gps/particle               gamma
+/gate/source/sphere17/gps/energytype             Mono
+/gate/source/sphere17/gps/monoenergy             0.511 MeV
+/gate/source/sphere17/gps/type                   Volume
+/gate/source/sphere17/gps/shape                  Sphere
+/gate/source/sphere17/gps/radius                 8.50 mm
+/gate/source/sphere17/gps/centre                 -28.65 -57.20 0.0 mm
+/gate/source/sphere17/gps/confine                iq_sphere17
+/gate/source/sphere17/gps/angtype                iso
+/gate/source/sphere17/dump                       1
+
+# --- Sphere 13 mm inner diameter --- centre: (+28.65, -57.20, 0.0) mm ---
+/gate/source/addSource                           sphere13
+/gate/source/sphere13/setActivity                24378 Bq
+/gate/source/sphere13/setForcedUnstableFlag      true
+/gate/source/sphere13/setForcedHalfLife          6586.2 s
+/gate/source/sphere13/setType                    backtoback
+/gate/source/sphere13/gps/particle               gamma
+/gate/source/sphere13/gps/energytype             Mono
+/gate/source/sphere13/gps/monoenergy             0.511 MeV
+/gate/source/sphere13/gps/type                   Volume
+/gate/source/sphere13/gps/shape                  Sphere
+/gate/source/sphere13/gps/radius                 6.50 mm
+/gate/source/sphere13/gps/centre                 28.65 -57.20 0.0 mm
+/gate/source/sphere13/gps/confine                iq_sphere13
+/gate/source/sphere13/gps/angtype                iso
+/gate/source/sphere13/dump                       1
+
+# --- Sphere 10 mm inner diameter --- centre: (+57.20, 0.0, 0.0) mm ---
+/gate/source/addSource                           sphere10
+/gate/source/sphere10/setActivity                11109 Bq
+/gate/source/sphere10/setForcedUnstableFlag      true
+/gate/source/sphere10/setForcedHalfLife          6586.2 s
+/gate/source/sphere10/setType                    backtoback
+/gate/source/sphere10/gps/particle               gamma
+/gate/source/sphere10/gps/energytype             Mono
+/gate/source/sphere10/gps/monoenergy             0.511 MeV
+/gate/source/sphere10/gps/type                   Volume
+/gate/source/sphere10/gps/shape                  Sphere
+/gate/source/sphere10/gps/radius                 5.00 mm
+/gate/source/sphere10/gps/centre                 57.20 0.0 0.0 mm
+/gate/source/sphere10/gps/confine                iq_sphere10
+/gate/source/sphere10/gps/angtype                iso
+/gate/source/sphere10/dump                       1
+
+/gate/source/list
