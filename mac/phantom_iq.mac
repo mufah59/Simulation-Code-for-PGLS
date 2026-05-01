@@ -81,13 +81,13 @@
 #   Largest sphere outer radius = 19.50 mm (S37)  ->  31.70 > 19.50  OK
 # ====================================================================
 
-# --- Sphere 37 mm inner diameter --- centre: (+28.65, +57.20, 0.0) mm ---
+# --- Sphere 37 mm inner diameter --- centre: (+28.65, +49.54, 0.0) mm ---
 /gate/iq_body_inner/daughters/name               iq_sphere37_shell
 /gate/iq_body_inner/daughters/insert             sphere
 /gate/iq_sphere37_shell/geometry/setRmax         19.50 mm
 /gate/iq_sphere37_shell/geometry/setRmin         0.0 mm
 /gate/iq_sphere37_shell/setMaterial              Glass
-/gate/iq_sphere37_shell/placement/setTranslation 28.65 57.20 0.0 mm
+/gate/iq_sphere37_shell/placement/setTranslation 28.65 49.54 0.0 mm
 /gate/iq_sphere37_shell/vis/setColor             yellow
 /gate/iq_sphere37_shell/vis/setVisible           1
 
@@ -100,13 +100,13 @@
 /gate/iq_sphere37/vis/setColor                   red
 /gate/iq_sphere37/vis/setVisible                 1
 
-# --- Sphere 28 mm inner diameter --- centre: (-28.65, +57.20, 0.0) mm ---
+# --- Sphere 28 mm inner diameter --- centre: (-28.65, +49.54, 0.0) mm ---
 /gate/iq_body_inner/daughters/name               iq_sphere28_shell
 /gate/iq_body_inner/daughters/insert             sphere
 /gate/iq_sphere28_shell/geometry/setRmax         15.00 mm
 /gate/iq_sphere28_shell/geometry/setRmin         0.0 mm
 /gate/iq_sphere28_shell/setMaterial              Glass
-/gate/iq_sphere28_shell/placement/setTranslation -28.65 57.20 0.0 mm
+/gate/iq_sphere28_shell/placement/setTranslation -28.65 49.54 0.0 mm
 /gate/iq_sphere28_shell/vis/setColor             yellow
 /gate/iq_sphere28_shell/vis/setVisible           1
 
@@ -138,13 +138,13 @@
 /gate/iq_sphere22/vis/setColor                   red
 /gate/iq_sphere22/vis/setVisible                 1
 
-# --- Sphere 17 mm inner diameter --- centre: (-28.65, -57.20, 0.0) mm ---
+# --- Sphere 17 mm inner diameter --- centre: (-28.65, -49.54, 0.0) mm ---
 /gate/iq_body_inner/daughters/name               iq_sphere17_shell
 /gate/iq_body_inner/daughters/insert             sphere
 /gate/iq_sphere17_shell/geometry/setRmax         9.50 mm
 /gate/iq_sphere17_shell/geometry/setRmin         0.0 mm
 /gate/iq_sphere17_shell/setMaterial              Glass
-/gate/iq_sphere17_shell/placement/setTranslation -28.65 -57.20 0.0 mm
+/gate/iq_sphere17_shell/placement/setTranslation -28.65 -49.54 0.0 mm
 /gate/iq_sphere17_shell/vis/setColor             yellow
 /gate/iq_sphere17_shell/vis/setVisible           1
 
@@ -157,13 +157,13 @@
 /gate/iq_sphere17/vis/setColor                   red
 /gate/iq_sphere17/vis/setVisible                 1
 
-# --- Sphere 13 mm inner diameter --- centre: (+28.65, -57.20, 0.0) mm ---
+# --- Sphere 13 mm inner diameter --- centre: (+28.65, -49.54, 0.0) mm ---
 /gate/iq_body_inner/daughters/name               iq_sphere13_shell
 /gate/iq_body_inner/daughters/insert             sphere
 /gate/iq_sphere13_shell/geometry/setRmax         7.50 mm
 /gate/iq_sphere13_shell/geometry/setRmin         0.0 mm
 /gate/iq_sphere13_shell/setMaterial              Glass
-/gate/iq_sphere13_shell/placement/setTranslation 28.65 -57.20 0.0 mm
+/gate/iq_sphere13_shell/placement/setTranslation 28.65 -49.54 0.0 mm
 /gate/iq_sphere13_shell/vis/setColor             yellow
 /gate/iq_sphere13_shell/vis/setVisible           1
 

@@ -84,7 +84,7 @@
 # REPEAT: 34 units around the ring
 /gate/unit/repeaters/insert ring
 /gate/unit/ring/setRepeatNumber 34
-/gate/unit/ring/setRadius 36.5 cm
+/gate/unit/ring/setRadius 38.905 cm
 
 # REPEAT: 3 detector units along axial direction
 /gate/unit/repeaters/insert linear

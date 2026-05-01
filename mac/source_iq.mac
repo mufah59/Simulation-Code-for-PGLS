@@ -8,10 +8,15 @@
 # ACTIVITY REFERENCE
 # ------------------
 # Background fill volume (elliptical body phantom, water only):
-#   V_body = pi * 150 mm * 115 mm * 180 mm = ~9,754,000 mm3 ~ 9754 mL
-#   (Common cited value in literature: ~9700 mL; used below for reference)
+#   V_total = pi * 150 mm * 115 mm * 180 mm = ~9,754,000 mm3 ~ 9754 mL
+#   Actual fillable volume (confine excludes daughters):
+#     9742 mL total inner volume
+#   - 367 mL lung insert (pi * 25.5^2 * 180 mm)
+#   -  48 mL sphere fills (sum of 6 sphere inner volumes)
+#   -   6 mL sphere shells (outer - inner for each shell)
+#   = 9321 mL actual background volume
 #   Typical background concentration: 5.3 kBq/mL
-#   Total background activity: 5.3 kBq/mL x 9700 mL = 51,410 kBq = 51.41 MBq
+#   Total background activity: 5.3 kBq/mL x 9321 mL = 49,401 kBq = 49.40 MBq
 #
 # Sphere volumes (inner radius r, V = 4/3 * pi * r^3):
 #   V_37 = (4/3)*pi*(18.5 mm)^3 =  26,522 mm3 =  26.522 mL
@@ -33,7 +38,7 @@
 # | 13 mm   |   1.150   |        24,378       |        48,756       |
 # | 10 mm   |   0.524   |        11,109       |        22,217       |
 # +---------+-----------+---------------------+---------------------+
-# Background: 51,410,000 Bq = 51.41 MBq  (same for both SBR values)
+# Background: 49,401,300 Bq = 49.40 MBq  (same for both SBR values)
 # Lung insert: NO source (cold insert)
 #
 # DEFAULT VALUES LOADED BELOW: SBR 4:1 with 5.3 kBq/mL background
@@ -65,7 +70,7 @@
 # ====================================================================
 
 /gate/source/addSource                           bg
-/gate/source/bg/setActivity                      51410000 Bq
+/gate/source/bg/setActivity                      49401300 Bq
 /gate/source/bg/setForcedUnstableFlag            true
 /gate/source/bg/setForcedHalfLife                6586.2 s
 /gate/source/bg/setType                          backtoback
@@ -89,7 +94,7 @@
 # Sphere centre coordinates are in world (scanner isocenter) frame.
 # ====================================================================
 
-# --- Sphere 37 mm inner diameter --- centre: (+28.65, +57.20, 0.0) mm ---
+# --- Sphere 37 mm inner diameter --- centre: (+28.65, +49.54, 0.0) mm ---
 /gate/source/addSource                           sphere37
 /gate/source/sphere37/setActivity                562266 Bq
 /gate/source/sphere37/setForcedUnstableFlag      true
@@ -101,12 +106,12 @@
 /gate/source/sphere37/gps/type                   Volume
 /gate/source/sphere37/gps/shape                  Sphere
 /gate/source/sphere37/gps/radius                 18.50 mm
-/gate/source/sphere37/gps/centre                 28.65 57.20 0.0 mm
+/gate/source/sphere37/gps/centre                 28.65 49.54 0.0 mm
 /gate/source/sphere37/gps/confine                iq_sphere37
 /gate/source/sphere37/gps/angtype                iso
 /gate/source/sphere37/dump                       1
 
-# --- Sphere 28 mm inner diameter --- centre: (-28.65, +57.20, 0.0) mm ---
+# --- Sphere 28 mm inner diameter --- centre: (-28.65, +49.54, 0.0) mm ---
 /gate/source/addSource                           sphere28
 /gate/source/sphere28/setActivity                243673 Bq
 /gate/source/sphere28/setForcedUnstableFlag      true
@@ -118,7 +123,7 @@
 /gate/source/sphere28/gps/type                   Volume
 /gate/source/sphere28/gps/shape                  Sphere
 /gate/source/sphere28/gps/radius                 14.00 mm
-/gate/source/sphere28/gps/centre                 -28.65 57.20 0.0 mm
+/gate/source/sphere28/gps/centre                 -28.65 49.54 0.0 mm
 /gate/source/sphere28/gps/confine                iq_sphere28
 /gate/source/sphere28/gps/angtype                iso
 /gate/source/sphere28/dump                       1
@@ -140,7 +145,7 @@
 /gate/source/sphere22/gps/angtype                iso
 /gate/source/sphere22/dump                       1
 
-# --- Sphere 17 mm inner diameter --- centre: (-28.65, -57.20, 0.0) mm ---
+# --- Sphere 17 mm inner diameter --- centre: (-28.65, -49.54, 0.0) mm ---
 /gate/source/addSource                           sphere17
 /gate/source/sphere17/setActivity                54526 Bq
 /gate/source/sphere17/setForcedUnstableFlag      true
@@ -152,12 +157,12 @@
 /gate/source/sphere17/gps/type                   Volume
 /gate/source/sphere17/gps/shape                  Sphere
 /gate/source/sphere17/gps/radius                 8.50 mm
-/gate/source/sphere17/gps/centre                 -28.65 -57.20 0.0 mm
+/gate/source/sphere17/gps/centre                 -28.65 -49.54 0.0 mm
 /gate/source/sphere17/gps/confine                iq_sphere17
 /gate/source/sphere17/gps/angtype                iso
 /gate/source/sphere17/dump                       1
 
-# --- Sphere 13 mm inner diameter --- centre: (+28.65, -57.20, 0.0) mm ---
+# --- Sphere 13 mm inner diameter --- centre: (+28.65, -49.54, 0.0) mm ---
 /gate/source/addSource                           sphere13
 /gate/source/sphere13/setActivity                24378 Bq
 /gate/source/sphere13/setForcedUnstableFlag      true
@@ -169,7 +174,7 @@
 /gate/source/sphere13/gps/type                   Volume
 /gate/source/sphere13/gps/shape                  Sphere
 /gate/source/sphere13/gps/radius                 6.50 mm
-/gate/source/sphere13/gps/centre                 28.65 -57.20 0.0 mm
+/gate/source/sphere13/gps/centre                 28.65 -49.54 0.0 mm
 /gate/source/sphere13/gps/confine                iq_sphere13
 /gate/source/sphere13/gps/angtype                iso
 /gate/source/sphere13/dump                       1

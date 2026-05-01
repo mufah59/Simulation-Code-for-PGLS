@@ -58,3 +58,4 @@
 /gate/digitizerMgr/delayed/setWindow 8.3 ns
 /gate/digitizerMgr/delayed/setOffset 100.0 ns
 /gate/digitizerMgr/delayed/MultiplesPolicy takeAllGoods
+/gate/digitizerMgr/delayed/minSectorDifference 1
